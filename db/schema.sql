@@ -17,6 +17,6 @@ CREATE TABLE employee (
     id SERIAL PRIMARY KEY, -- Primary key, auto-incrementing
     first_name VARCHAR(30),
     last_name VARCHAR (30),
-    role_id INTEGER NOT NULL REFERENCES role(id),
-    manager_id INTEGER REFERENCES employee(id)
+    role_id INTEGER NOT NULL REFERENCES role(id), -- foreign key. It establishes a relationship between the employee table and the role table, indicating which role an employee holds.
+    manager_id INTEGER REFERENCES employee(id) -- foreign key.  It establishes a hierarchical relationship within the employee table, indicating that an employee can have a manager who is also an employee. 
 );

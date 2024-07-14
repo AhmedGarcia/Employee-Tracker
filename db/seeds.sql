@@ -1,0 +1,1 @@
+gineeringINSERT INTO department (name) VALUES ('Engineering'), ('Sales'), ('Finance');

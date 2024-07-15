@@ -44,18 +44,19 @@ const mainMenu = async () => {
             console.table(employees); //Displays all employees in table
             break; 
         case 'Add a department':
-            const { departmentName } = await inquirer.prompt({
+            const { departmentName } = await inquirer.prompt({ // Prompt the user for the department name
                 name: 'departmentName',
                 type: 'input',
                 message: 'Enter the name of the department:',
             });
-            await addDepartment(departmentName);
+            await addDepartment(departmentName); // Add the new department
             console.log(`Added department: ${departmentName}`);
             break;
         case 'Add a role':
-            const departmentsList = await getAllDepartments();
+            const departmentsList = await getAllDepartments(); // Get all departments for selection
             const departmentChoices = departmentsList.map(({ id, name}) => ({ name, value: id })); 
-            const { roleTitle, roleSalary, roleDepartment } = await inquirer.prompt([
+            // Prompt the user for role details
+            const { roleTitle, roleSalary, roleDepartment } = await inquirer.prompt([ 
                 {
                     name: 'roleTitle',
                     type: 'input',
@@ -73,8 +74,48 @@ const mainMenu = async () => {
                     choices: departmentChoices,
                 },
             ]);
-            await addRole(roleTitle, roleSalary, roleDepartment);  
+            await addRole(roleTitle, roleSalary, roleDepartment); // Add the new role  
             console.log(`Added role: ${roleTitle}`) ;
             break;
+            case 'Add an employee':
+                const roleList = await getAllRoles(); // Get all roles for selection
+                constroleChoices = roleList.map(({ id, title}) => ({ name: title, value: id}));
+                const employeesList = await getAllEmployees(); // Get all employees for selection as managers
+                const managerChoices = employeesList.map(({ id, first_name, last_name}) => ({
+                    name: `${first_name} ${last_name}`,
+                    value: id,
+                }));
+                managerChoices.unshift({ name: 'None', value: null}); // Add "None" option for no manager. The unshift method is adding an object with the properties name and value to the beginning of the managerChoices array
+
+                const { firstName, lastName, employeeRole, employeeManager } = await inquirer.prompt([
+                {
+                    name: 'firstName',
+                    type: 'input',
+                    message: 'Enter the first name of the employee:',
+                },
+                {
+                    name: 'lastName',
+                    type: 'input',
+                    message: 'Enter the last name of the employee:',
+                },
+                {
+                    name: 'employeeRole',
+                    type: 'list',
+                    message: 'Select the role for the employee:',
+                    choices: roleChoices,
+                },
+                {
+                    name: 'employeeManager',
+                    type: 'list',
+                    message: 'Select the manager for the employee:',
+                    choices: managerChoices,
+                
+                },
+
+            ]);
+            await addEmployee(firstName, lastName, employeeRole, employeeManager);// Add the new employee
+            console.log (`Added employee: ${firstName} ${lastName}`);
+            break;
+            case 'Update employee role':
     }
 }

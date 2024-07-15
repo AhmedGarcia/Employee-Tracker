@@ -14,3 +14,15 @@ const getAllRoles = async () => {
         `);  //SQL query to get all roles and their departments
         return res.rows;
 };
+
+// Function to get all employees along with their roles, departments, and managers. LEFT JOIN ensures that all records from the left table (employee aliased as e in this case) are included in the result set
+const getAllEmployees = async () => {
+    const res = await client.query (`
+        SELECT e.id, e.first_name, e.last_name, role.title, department.name AS department, role.slary, m.first_name AS manager_first_name, m.last_name AS manager_last_name
+        FROM employee e
+        JOIN role ON e.role_id = role.id
+        JOIN department ON role.department_id = department.id
+        LEFT JOIN employee m ON e.manager_id = m.id 
+        `);
+        return res.rows;
+}

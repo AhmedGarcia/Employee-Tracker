@@ -6,6 +6,7 @@ const getAllDepartments = async () => {
     const res = await client.query('SELECT * FROM department');// Execute SQL query to get all departments
     return res.rows;// Return the result rows
 };
+
 // Function to get all roles along with their associated department names
 const getAllRoles = async () => {
     const res = await client.query(`
@@ -42,3 +43,32 @@ const addRole = async (title, salary, department_id) => {
     );
     return res.rows[0];// Return the newly added role
 };
+
+const addEmployee = async (first_name, last_name, role_id, manager_id) => {
+    const res = await client.query(
+    'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4) RETURNING *',
+    [first_name, last_name, role_id, manager_id]
+    );
+    return res.rows[0];// Return the newly added employee
+};
+
+//Updates employees role in database
+const updateEmployeeRole =  async (employee_id, role_id) => {
+    const res = await client.query(
+        'UPDATE employee SET role_id = $1 WHERE id = $2 RETURNING *',
+        [role_id, employee_id]
+    );
+    return res.rows[0]; //// Return the updated employee
+
+};
+
+module.exports = {
+    getAllDepartments,
+    getAllRoles,
+    getAllEmployees,
+    addDepartment,
+    addRole,
+    addEmployee,
+    updateEmployeeRole,
+};
+

@@ -25,4 +25,20 @@ const getAllEmployees = async () => {
         LEFT JOIN employee m ON e.manager_id = m.id 
         `);
         return res.rows;
-}
+};
+
+// Adds/inserts a new department to the database
+const addDepartment = async (name) => {
+    const res = await client.query(
+        'INSERT INTO department (name) VALUES ($1) RETURNING *', [name]);
+    return res.rows[0]; // Return the newly added department
+};
+
+//  Adds/inserts a new role to the database
+const addRole = async (title, salary, department_id) => {
+    const res = await client.query(
+        'INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3) RETURNING *', 
+        [title, salary, department_id]
+    );
+    return res.rows[0];// Return the newly added role
+};

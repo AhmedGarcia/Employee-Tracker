@@ -117,5 +117,36 @@ const mainMenu = async () => {
             console.log (`Added employee: ${firstName} ${lastName}`);
             break;
             case 'Update employee role':
+                const employeeListToUpdate = await getAllEmployees();
+                const employeeChoices = employeeListToUpdate.map(({ id, first_name, last_name}) => ({
+                    name: `${first_name} ${last_name}`,
+                    value: id,
+                }));
+                const roleChoicesForUpdate = rolesList.map(({ id, title}) => ({name: title, value: id}));
+                //Prompt user to select an employee and their new role
+                const { employeeId, newRoleId } = await inquirer.prompt([
+                    {
+                        name: 'employeeId',
+                        type: 'list',
+                        message: 'Select tghe employee to update:',
+                        choices: employeeChoices,
+                    },
+                    {
+                        name: 'newRoleId',
+                        type: 'list',
+                        message: 'Select the new role for the employee:',
+                        choices: roleChoicesForUpdate,
+
+                    },
+
+                ]);
+                await updateEmployeeRole(employeeId, newRoleId)// Updates the employee's role
+                console.log(`Updated employee's role`);
+                break;
+            case 'EXIT':
+                process.exit();// Exits the application
     }
-}
+    await mainMenu();// Show the main menu again after an action is completed
+};
+
+mainMenu();

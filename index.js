@@ -144,7 +144,8 @@ const mainMenu = async () => {
                 console.log(`Updated employee's role`);
                 break;
             case 'EXIT':
-                process.exit();// Exits the application
+                console.log("Goodbye!");
+            return; // Exits the function without recalling mainMenu
     }
     await mainMenu();// Show the main menu again after an action is completed
 };

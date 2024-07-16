@@ -1,4 +1,4 @@
-const inquirer = require('innquirer');
+const inquirer = require('ingitquirer');
 
 const {
     getAllDepartments,

@@ -1,3 +1,8 @@
+-- Drop tables if they exist
+DROP TABLE IF EXISTS employee CASCADE;
+DROP TABLE IF EXISTS role CASCADE;
+DROP TABLE IF EXISTS department CASCADE;
+
 -- Creates the department table
 CREATE TABLE department (
     id SERIAL PRIMARY KEY, -- Primary key, auto-incrementing

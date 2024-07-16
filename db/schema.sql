@@ -7,7 +7,7 @@ CREATE TABLE department (
 -- Creates the role table
 CREATE TABLE role (
     id SERIAL PRIMARY KEY, -- Primary key, auto-incrementing
-    title VARCHAR(30) UNIQYE NOT NULL,
+    title VARCHAR(30) UNIQUE NOT NULL,
     salary DECIMAL NOT NULL,
     department_id INTEGER NOT NULL REFERENCES department(id)
 );

@@ -124,7 +124,8 @@ const mainMenu = async () => {
                     name: `${first_name} ${last_name}`,
                     value: id,
                 }));
-                const roleChoicesForUpdate = rolesList.map(({ id, title }) => ({ name: title, value: id }));
+                const rolesListForUpdate = await getAllRoles();  // Fetch roles list here
+                const roleChoicesForUpdate = rolesListForUpdate.map(({ id, title }) => ({ name: title, value: id }));
                 // Prompt the user to select an employee and their new role
                 const { employeeId, newRoleId } = await inquirer.prompt([
                     {

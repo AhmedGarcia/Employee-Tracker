@@ -14,6 +14,10 @@ A command-line application to manage a company's employee database using Node.js
 - [Contributing](#contributing)
 - [Contact](#contact)
 
+## Walkthrough Video Link
+
+[Walkthrough video of how to initiate the app and how to interact with the inquirer ui](https://drive.google.com/file/d/1xVE32E9NuWhiRQgfHh6qlShbNe6A0Uyb/view?usp=drive_link)
+
 ## Installation
 
 Follow these steps to set up the project:
@@ -52,6 +56,15 @@ Follow these steps to set up the project:
    ```sh
    psql -U postgres -c "CREATE DATABASE employee_tracker;"
    ```
+
+   * In case the data base already exists:
+
+   ```sh
+   psql -U postgres -c "DROP DATABASE employee_tracker;"
+   ```
+
+   * Then run the command to CREATE DATABASE again.
+
 5. **Run the Schema script**:
 
     Next, run the schema script to create the necessary tables. Make sure you are in the directory where db/schema.sql is located:
